@@ -1,0 +1,9 @@
+streamlit
+langchain
+llama-cpp-python
+pypdf
+transformers
+llama-index
+sentence-transformers
+llama-index-embeddings-langchain
+llama-index-llms-langchain
