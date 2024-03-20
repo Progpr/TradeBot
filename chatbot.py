@@ -15,11 +15,6 @@ from llama_index.embeddings.langchain import LangchainEmbedding
 
 from llama_index.core import ServiceContext
 
-
-#dataset
-dataset_path = "/Users/athar/Documents/RM-Research/TradeBot/Data"
-Documents = SimpleDirectoryReader(dataset_path).load_data()
-
 #model loading
 model_name_or_path = "TheBloke/Llama-2-7B-Chat-GGUF"
 model_basename = "llama-2-7b-chat.Q2_K.gguf" # the model is in bin format
@@ -42,7 +37,7 @@ def query(message):
     # Make sure the model path is correct for your system!
     llm = LlamaCpp(
         model_path=model_path,
-        temperature=0.75,
+        temperature=0.5,
         max__new_tokens=256,
         n_ctx = 3098,
         context_window =4000,
@@ -57,6 +52,7 @@ def query(message):
 
 st.title("TradeBot")
 st.header("A Llama 2 Trading Assistant")
+st.subheader("Chatbot without RAG Implementation")
 
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
@@ -69,11 +65,10 @@ if input and button:
     st.session_state['chat_history'].append(('You', input))
 
     st.subheader("Response is")
-    for chunk in response:
-        st.write(chunk.text)
-        st.session_state['chat_history'].append(('Bot',chunk.text))
-    st.subheader("The chat history is")
+    st.write(response)
+    st.session_state['chat_history'].append(('Bot',response))
 
-    for role,text in st.session_state['chat_history']:
-        st.write["f{role}:{text}"]
+    # st.subheader("The chat history is")
+    # for role,text in st.session_state['chat_history']:
+    #     st.write["f{role}:{text}"]
 
